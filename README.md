@@ -1,6 +1,6 @@
 # Chrome DevTools MCP Workshop
 
-Google DevFest 2024 Workshop 活动网站
+Google DevFest 2025 Workshop 活动网站
 
 ## 关于这个项目
 
@@ -34,5 +34,5 @@ python3 -m http.server 8080
 
 ---
 
-© 2024 Chrome DevTools MCP Workshop. Powered by Google DevFest.
+© 2025 Chrome DevTools MCP Workshop. Powered by Google DevFest.
 
