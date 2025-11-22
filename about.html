@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我 - Chrome DevTools MCP Workshop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0d0d0d;
+            --bg-secondary: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent-purple: #8b5cf6;
+            --accent-blue: #3b82f6;
+            --accent-gradient: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(13, 13, 13, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 600;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-primary);
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .avatar {
+            width: 150px;
+            height: 150px;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            box-shadow: 0 20px 60px rgba(139, 92, 246, 0.3);
+        }
+
+        .name {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .title {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .bio-section {
+            background: var(--bg-secondary);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        .bio-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .bio-section p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .interest-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .interest-card {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .interest-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(139, 92, 246, 0.5);
+        }
+
+        .interest-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .interest-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .interest-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .skill-tag {
+            background: rgba(139, 92, 246, 0.2);
+            color: var(--accent-purple);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .contact-info {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border-radius: 12px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .contact-info p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .name {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">DevTools MCP Workshop</div>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="gdg-devfest.html">GDG & DevFest</a></li>
+                <li><a href="devtools-mcp.html">DevTools MCP</a></li>
+                <li><a href="about.html" class="active">关于我</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="content">
+        <div class="profile-header">
+            <div class="avatar">🐷</div>
+            <h1 class="name">皮皮猪</h1>
+            <p class="title">开发者 · 技术爱好者 · 钓鱼达人</p>
+        </div>
+
+        <div class="bio-section">
+            <h2>👋 关于我</h2>
+            <p>
+                你好！我是皮皮猪，一名热爱技术的开发者。我对新技术充满好奇，喜欢探索各种前沿的开发工具和框架。
+            </p>
+            <p>
+                作为一名开发者，我相信技术的力量可以改变世界。我享受编写代码的过程，也热衷于分享自己的经验和知识。这次有机会参加 Google DevFest 的 Chrome DevTools MCP Workshop，我感到非常兴奋！
+            </p>
+        </div>
+
+        <div class="bio-section">
+            <h2>💼 我的工作</h2>
+            <p>
+                我目前从事软件开发工作，专注于现代 Web 技术。我对 AI 辅助开发特别感兴趣，相信 AI 工具将会极大地提升我们的开发效率和体验。
+            </p>
+            <div class="skills-list">
+                <span class="skill-tag">JavaScript</span>
+                <span class="skill-tag">TypeScript</span>
+                <span class="skill-tag">React</span>
+                <span class="skill-tag">Node.js</span>
+                <span class="skill-tag">AI Tools</span>
+                <span class="skill-tag">Chrome DevTools</span>
+                <span class="skill-tag">MCP</span>
+            </div>
+        </div>
+
+        <div class="bio-section">
+            <h2>🎯 兴趣爱好</h2>
+            <div class="interest-grid">
+                <div class="interest-card">
+                    <div class="interest-icon">💻</div>
+                    <div class="interest-title">编程开发</div>
+                    <div class="interest-desc">热爱探索新技术，享受解决问题的快乐</div>
+                </div>
+                <div class="interest-card">
+                    <div class="interest-icon">🎣</div>
+                    <div class="interest-title">钓鱼</div>
+                    <div class="interest-desc">在大自然中放松身心，享受宁静时光</div>
+                </div>
+                <div class="interest-card">
+                    <div class="interest-icon">📚</div>
+                    <div class="interest-title">学习分享</div>
+                    <div class="interest-desc">持续学习新知识，与社区分享经验</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bio-section">
+            <h2>🎣 关于钓鱼</h2>
+            <p>
+                除了编程，我最大的爱好就是钓鱼。钓鱼教会了我耐心和专注，这些品质在编程中同样重要。当我面对电脑屏幕感到疲惫时，去河边坐上一个下午，等待鱼儿上钩，是最好的放松方式。
+            </p>
+            <p>
+                就像调试代码需要耐心一样，钓鱼也需要足够的耐心和对环境的观察。有时候，最大的收获不是鱼，而是在等待过程中的思考和感悟。
+            </p>
+        </div>
+
+        <div class="contact-info">
+            <h2 style="margin-bottom: 1rem;">📬 联系我</h2>
+            <p>如果你也对 Chrome DevTools MCP 感兴趣，或者想交流钓鱼经验，欢迎在 DevFest 活动中找我聊天！</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Chrome DevTools MCP Workshop. Powered by Google DevFest.</p>
+    </footer>
+</body>
+</html>
+

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GDG & DevFest - Chrome DevTools MCP Workshop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0d0d0d;
+            --bg-secondary: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent-purple: #8b5cf6;
+            --accent-blue: #3b82f6;
+            --accent-gradient: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(13, 13, 13, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 600;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-primary);
+        }
+
+        .content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .page-title {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-gradient);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .section p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .highlight-box {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            margin: 2rem 0;
+        }
+
+        .highlight-box h3 {
+            color: var(--accent-purple);
+            margin-bottom: 1rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">DevTools MCP Workshop</div>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="gdg-devfest.html" class="active">GDG & DevFest</a></li>
+                <li><a href="devtools-mcp.html">DevTools MCP</a></li>
+                <li><a href="about.html">关于我</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="content">
+        <div class="page-header">
+            <h1 class="page-title">GDG & DevFest</h1>
+            <p class="page-subtitle">Google 开发者社区的年度技术盛会</p>
+        </div>
+
+        <div class="section">
+            <h2>
+                <div class="section-icon">🌍</div>
+                什么是 GDG？
+            </h2>
+            <p>
+                Google Developer Groups (GDG) 是由 Google 支持的开发者社区。GDG 是一个面向对 Google 技术感兴趣的开发者的独立团体，由充满热情的志愿者领导。
+            </p>
+            <p>
+                全球有数百个 GDG 章节，在各地定期举办技术讲座、代码实验室、学习小组和社交活动，为开发者提供学习、分享和交流的平台。
+            </p>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number">1000+</div>
+                <div class="stat-label">全球分会</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">100万+</div>
+                <div class="stat-label">社区成员</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">140+</div>
+                <div class="stat-label">覆盖国家</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>
+                <div class="section-icon">🎉</div>
+                关于 DevFest
+            </h2>
+            <p>
+                DevFest (Developers Festival) 是 GDG 举办的年度旗舰活动，也是全球最大的社区驱动的开发者大会系列。每年秋季，全球各地的 GDG 都会举办 DevFest 活动。
+            </p>
+            <p>
+                DevFest 聚焦于 Google 的最新技术和产品，包括 Android、Web、Cloud、AI/ML 等领域。活动形式包括技术演讲、动手实践的 Workshop、Codelab 和社交活动。
+            </p>
+
+            <div class="highlight-box">
+                <h3>🎯 DevFest 2024 主题</h3>
+                <p>今年的 DevFest 聚焦于 AI 驱动的开发工具和实践，探索如何利用人工智能技术提升开发效率和创新能力。Chrome DevTools MCP Server 正是这一主题下的重要实践之一。</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>
+                <div class="section-icon">💡</div>
+                为什么参加 DevFest？
+            </h2>
+            <div class="highlight-box">
+                <p><strong>🚀 学习前沿技术：</strong> 第一时间了解 Google 最新的技术和产品动态</p>
+                <p><strong>🤝 扩展人脉：</strong> 与志同道合的开发者交流，建立技术社交网络</p>
+                <p><strong>💻 动手实践：</strong> 通过 Workshop 和 Codelab 实际操作，快速掌握新技能</p>
+                <p><strong>🎁 获得资源：</strong> 免费的学习资料、开发工具和社区支持</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Chrome DevTools MCP Workshop. Powered by Google DevFest.</p>
+    </footer>
+</body>
+</html>
+
